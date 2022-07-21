@@ -7,8 +7,8 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    public function welcome()
     {
-        return view('index');
+        return view('welcome');
     }
 }
