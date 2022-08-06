@@ -6,7 +6,6 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -17,5 +16,5 @@ module.exports = {
         },
     },
 
-    plugins: [],
+    plugins: [require('@tailwindcss/forms')],
 };
