@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,18 @@ Route::controller(PostController::class)->group(function (){
   Route::post('/post/{post}/unlike', 'unlike')->middleware('auth');
 });
 
-//calender
-Route::controller(CalenderController::class)->group(function(){
+//calendar
+Route::controller(CalendarController::class)->group(function(){
     
 });
+
+//fullcalendar
+Route::controller(ScheduleController::class)->group(function (){
+  Route::get('/fullcalendar', 'index');
+  Route::post('/fullcalendar', 'store');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

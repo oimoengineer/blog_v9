@@ -1,4 +1,7 @@
-import './bootstrap';
+
+require('./bootstrap');
+window.axios = require("axios");
+require('./fullcalendar');
 
 import Alpine from 'alpinejs';
 
