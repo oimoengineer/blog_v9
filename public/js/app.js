@@ -20403,6 +20403,17 @@ var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__.Calendar(cale
         alert("登録に失敗しました");
       });
     }
+  },
+  events: function events(info, successCallback, failureCallback) {
+    window.axios.post('/fullcalendar-get', {
+      start_date: info.start.valueOf(),
+      end_date: info.end.valueOf()
+    }).then(function (response) {
+      calendar.removeAllEvents();
+      successCallback(response.data);
+    })["catch"](function () {
+      alert("登録に失敗しました");
+    });
   }
 });
 calendar.render();

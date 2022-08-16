@@ -42,6 +42,20 @@ let calendar = new Calendar(calendarEl, {
                 })
         }
     },
+    events: function(info, successCallback, failureCallback) {
+        window.axios
+            .post('/fullcalendar-get', {
+                start_date: info.start.valueOf(),
+                end_date: info.end.valueOf(),
+            })
+            .then((response) => {
+                calendar.removeAllEvents();
+                successCallback(response.data);
+            })
+            .catch(() => {
+                alert("登録に失敗しました");
+            });
+    },
     
 });
 calendar.render();

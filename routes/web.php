@@ -34,6 +34,8 @@ Route::controller(CalendarController::class)->group(function(){
 Route::controller(ScheduleController::class)->group(function (){
   Route::get('/fullcalendar', 'index');
   Route::post('/fullcalendar', 'store');
+  Route::post('/fullcalendar-get', 'show');
+  
 });
 
 
