@@ -34,6 +34,11 @@ class ScheduleController extends Controller
                 ->get();
     }
     
+    public function create()
+    {
+        return view('fullcalendar/create');
+    }
+    
     public function store(Request $request)
     {
         //validation

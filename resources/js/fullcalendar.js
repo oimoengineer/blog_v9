@@ -17,36 +17,13 @@ let calendar = new Calendar(calendarEl, {
     locale: "ja",
     
     //日付をクリック、または範囲を選択したイベント
-    selectable: true,
-    select: function(info){
-        const eventName = prompt("イベントを入力して下さい");
-        
-        if(eventName){
-            window.axios
-                .post("/fullcalendar", {
-                    start_date: info.start.valueOf(),
-                    end_date: info.end.valueOf(),
-                    event_name: eventName,
-                })
-                .then(() => {
-                    calendar.addEvent({
-                        title: eventName,
-                        start: info.start,
-                        end: info.end,
-                        allDay: true,
-                    });
-                })
-                .catch(() => {
-                    //validation error
-                    alert("登録に失敗しました");
-                })
-        }
-    },
+    // selectable: true,
+    
     events: function(info, successCallback, failureCallback) {
         window.axios
             .post('/fullcalendar-get', {
-                start_date: info.start.valueOf(),
-                end_date: info.end.valueOf(),
+                start_date: info.startStr,
+                end_date: info.endStr,
             })
             .then((response) => {
                 calendar.removeAllEvents();
