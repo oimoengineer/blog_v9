@@ -20382,32 +20382,11 @@ var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__.Calendar(cale
   },
   locale: "ja",
   //日付をクリック、または範囲を選択したイベント
-  selectable: true,
-  select: function select(info) {
-    var eventName = prompt("イベントを入力して下さい");
-
-    if (eventName) {
-      window.axios.post("/fullcalendar", {
-        start_date: info.start.valueOf(),
-        end_date: info.end.valueOf(),
-        event_name: eventName
-      }).then(function () {
-        calendar.addEvent({
-          title: eventName,
-          start: info.start,
-          end: info.end,
-          allDay: true
-        });
-      })["catch"](function () {
-        //validation error
-        alert("登録に失敗しました");
-      });
-    }
-  },
+  // selectable: true,
   events: function events(info, successCallback, failureCallback) {
     window.axios.post('/fullcalendar-get', {
-      start_date: info.start.valueOf(),
-      end_date: info.end.valueOf()
+      start_date: info.startStr,
+      end_date: info.endStr
     }).then(function (response) {
       calendar.removeAllEvents();
       successCallback(response.data);

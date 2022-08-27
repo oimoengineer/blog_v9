@@ -27,9 +27,13 @@
           <div class="post">
             <h1><a href="/post/{{ $post->id }}">{{ $post->title }}</a></h1>
             <p>{{ $post->body }}</p>
+            <p>{{ $post->user->name }}</p>
             <p>{{ $post->updated_at }}</p>
           </div><!-- /.post -->
         @endforeach
+        <div class="paginate">
+          {{ $posts->links() }}
+        </div>
       </div><!-- /.posts -->
       
     </body>
