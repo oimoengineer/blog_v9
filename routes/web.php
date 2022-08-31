@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScheduleController;
+use App\Events\Message;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +41,20 @@ Route::controller(ScheduleController::class)->group(function (){
   
 });
 
+//chat
+Route::get('/chat', function() {
+  return view('chat');
+});
 
+Route::post('/send-message', function(Request $request) {
+  event(
+    new Message(
+        $request->input('username'),
+        $request->input('message')
+      )
+    );
+    return ["success" => true];
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

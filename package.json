@@ -14,19 +14,17 @@
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.2",
         "axios": "^0.25.0",
+        "laravel-echo": "^1.14.0",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
         "postcss": "^8.4.6",
+        "pusher-js": "^7.4.0",
         "tailwindcss": "^3.1.0",
-        "vue": "^3.2.37",
-        "vue-loader": "^16.8.3"
+        "vue": "^2.6",
+        "vue-loader": "^15.10.0",
+        "vue-template-compiler": "^2.7.10"
     },
     "dependencies": {
-        "@fullcalendar/core": "^5.11.2",
-        "@fullcalendar/daygrid": "^5.11.2",
-        "@fullcalendar/interaction": "^5.11.2",
-        "@fullcalendar/list": "^5.11.2",
-        "@fullcalendar/timegrid": "^5.11.2",
-        "@fullcalendar/vue3": "^5.11.2"
+        "bootstrap": "^5.2.0"
     }
 }
