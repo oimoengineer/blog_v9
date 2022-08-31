@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScheduleController;
+use App\Events\Message;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,8 @@ use App\Http\Controllers\ScheduleController;
 
 Route::controller(PostController::class)->group(function (){
   Route::get('/posts', 'index');
-  Route::get('/post/create', 'create');
-  Route::post('/posts', 'store');
+  Route::get('/post/create', 'create')->middleware('auth');
+  Route::post('/posts', 'store')->middleware('auth');
   Route::get('/post/{post}', 'show');
   //いいね機能用ルーティング
   Route::post('/post/{post}/like', 'like')->middleware('auth');
@@ -39,7 +41,20 @@ Route::controller(ScheduleController::class)->group(function (){
   
 });
 
+//chat
+Route::get('/chat', function() {
+  return view('chat');
+});
 
+Route::post('/send-message', function(Request $request) {
+  event(
+    new Message(
+        $request->input('username'),
+        $request->input('message')
+      )
+    );
+    return ["success" => true];
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

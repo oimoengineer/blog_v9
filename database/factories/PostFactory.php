@@ -19,6 +19,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->word,
             'body' => fake()->text($maxNbChars = 6),
+            'user_id' => 1,
         ];
     }
 }
