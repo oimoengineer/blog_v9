@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     use HasFactory;
     
     protected $fillable = [
-        'title',
-        'body',
+        'comment',
+        'user_id',
+        'post_id',
     ];
     
     protected static function boot()
@@ -20,29 +21,19 @@ class Post extends Model
         parent::boot();
         
         //保存時user_idをログインユーザーに設定
-        self::saving(function($post) {
-            $post->user_id = \Auth::id();
+        self::saving(function($comment) {
+            $comment->user_id = \Auth::id();
         });
     }
     
-    public function getPaginateByLimit(int $limit_count = 5)
+    //relation
+    public function post()
     {
-        return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this->belongsTo(Post::class);
     }
     
-    //relation
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-    
-    public function likes()
-    {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
 }

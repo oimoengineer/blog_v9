@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\CommentController;
 use App\Events\Message;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,7 @@ Route::controller(PostController::class)->group(function (){
   Route::get('/post/create', 'create')->middleware('auth');
   Route::post('/posts', 'store')->middleware('auth');
   Route::get('/post/{post}', 'show');
+  Route::delete('/post/{post}', 'destroy');
   //いいね機能用ルーティング
   Route::post('/post/{post}/like', 'like')->middleware('auth');
   Route::post('/post/{post}/unlike', 'unlike')->middleware('auth');
@@ -54,6 +56,12 @@ Route::post('/send-message', function(Request $request) {
       )
     );
     return ["success" => true];
+});
+
+// comment
+Route::controller(CommentController::class)->group(function (){
+  Route::post('/post/{post}/comment', 'store');
+  Route::delete('/post/{post}/comment/{comment}', 'destroy');
 });
 
 Route::get('/dashboard', function () {

@@ -29,12 +29,24 @@
             <p>{{ $post->body }}</p>
             <p>{{ $post->user->name }}</p>
             <p>{{ $post->updated_at }}</p>
+            <form action='/post/{{ $post->id }}' method='post' style='display:inline' id="form_delete">
+                @csrf
+                @method('DELETE')
+                <input type="submit" value="delete" onclick="return deletePost(this);">
+            </form>
           </div><!-- /.post -->
         @endforeach
         <div class="paginate">
           {{ $posts->links() }}
         </div>
       </div><!-- /.posts -->
-      
+      <script>
+      function deletePost(e){
+          'use strict';
+          if(confirm('削除すると復元できません。\n本当に削除しますか？')){
+              document.getElementById('form_delete').submit();
+          }
+      }
+      </script>
     </body>
 </html>

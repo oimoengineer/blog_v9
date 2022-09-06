@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -18,9 +19,9 @@ class PostController extends Controller
         return view('index')->with(['posts' => $post->getPaginateByLimit()]);
     }
     
-    public function show(Post $post)
+    public function show(Post $post, Comment $comment)
     {
-        return view('show')->with(['post' => $post]);
+        return view('show')->with(['post' => $post, 'comments' => $comment->where('post_id', '=', $post->id)->get()]);
     }
     
     public function create()
@@ -33,6 +34,12 @@ class PostController extends Controller
         $input = $request['post'];
         $post->fill($input)->save();
         return redirect('/posts');
+    }
+    
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect("/posts");
     }
     
     //いいね機能
