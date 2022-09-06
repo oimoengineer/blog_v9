@@ -40,7 +40,7 @@
                     <h4>{{ $comment->comment }}</h4>
                     <p>{{ $comment->user->name }}</p>
                     <p>{{ $comment->updated_at }}</p>
-                    <form action='/post/{{ $post->id}}/comment/{{ $comment->id }}' method='post' style='display:inline' id="form_delete">
+                    <form action='{{ route("comment.destroy", $comment)}}' method='post' style='display:inline' id="form_delete">
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="delete" onclick="return deletePost(this);">
