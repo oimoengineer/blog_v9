@@ -40,6 +40,7 @@ message_form.addEventListener('submit', function(e) {
     axios(options);
 });
 
+// pusher
 window.Echo.channel('chat')
     .listen('.message', (e) =>{
         message_el.innerHTML += '<div class="message"><strong>' + e.username + ':</strong>' + e.message + '</div>';

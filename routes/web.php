@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\NoteController;
 use App\Events\Message;
 use Illuminate\Http\Request;
 
@@ -63,6 +65,22 @@ Route::controller(CommentController::class)->group(function (){
   Route::post('/post/{post}/comment', 'store');
   Route::delete('/post/{post}/comment', 'destroy')->name("comment.destroy");
 });
+
+//game関連
+//games checkbox
+Route::controller(GameController::class)->group(function (){
+  Route::get('/games', 'index');
+  Route::post('/games', 'store');
+  Route::get('/games/create', 'create');
+});
+
+// game memo
+Route::controller(NoteController::class)->group(function (){
+  Route::post('/games/notes', 'store');
+  Route::get('/games/notes/{note}', 'show');
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
