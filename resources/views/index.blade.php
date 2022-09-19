@@ -29,6 +29,11 @@
             <p>{{ $post->body }}</p>
             <p>{{ $post->user->name }}</p>
             <p>{{ $post->updated_at }}</p>
+            <div>
+              @foreach($post->tags as $tag)
+            		<span class="badge badge-pill badge-info">{{$tag->name}}</span>
+            	@endforeach
+            </div>
             <form action='/post/{{ $post->id }}' method='post' style='display:inline' id="form_delete">
                 @csrf
                 @method('DELETE')

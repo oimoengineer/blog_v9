@@ -18,7 +18,10 @@
           <p>Body</p>
           <textarea name="post[body]"></textarea>
           <br>
-          <input type="submit" value="投稿する"/>
+          <p>Tag</p>
+          <input type="text" name="tag_name" />
+          <br>
+          <p><input type="submit" value="投稿する"/></p>
         </div><!-- /.form-group -->
         <a href="/posts">[back]</a>
       </form> 

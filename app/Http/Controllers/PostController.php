@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Tag;
 use App\Models\Comment;
 
 class PostController extends Controller
@@ -31,8 +32,20 @@ class PostController extends Controller
     
     public function store(Post $post, Request $request)
     {
-        $input = $request['post'];
-        $post->fill($input)->save();
+        
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+     
+        preg_match_all('/#([a-zA-Z0-9０-９ぁ-んァ-ヶー一-龠]+)/u', $request->tag_name, $match);
+        
+        foreach($match[1] as $input)
+        {
+            $tag=Tag::firstOrCreate(['name'=>$input]);
+            $tag=null;
+            $tag_id=Tag::where('name',$input)->get(['id']);
+            $post->tags()->attach($tag_id);
+        }
+        
         return redirect('/posts');
     }
     
