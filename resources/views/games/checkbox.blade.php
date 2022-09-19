@@ -18,11 +18,12 @@
         @csrf
             @foreach($categories as $category)
             <dl class="gamelist">
-              <dt><label><input type="checkbox" v-model="checked" @change="onChange(checked)" name="note[category_id]" value="{{ $category->id }}">{{ $category->name }}</label></dt>
+              <label><input type="checkbox" v-model="parents.checked" @click="onChange()" name="note[category_id]" value="{{ $category->id }}">{{ $category->name }}</label>
               @{{checked}}
                 @foreach($games as $game)
                   @if($category->id === $game->category_id)
-                        <dd><label><input type="checkbox" v-model="checked" name="note[game_id]" value="{{ $game->id }}">{{ $game->name }}</label></dd>
+                        <br>
+                        <label style="padding-left: 1em; text-indent: -1em;"><input type="checkbox" v-model="children.checked" name="note[game_id]" value="{{ $game->id }}">{{ $game->name }}</label>
                   @endif
                 @endforeach
             </dl>
@@ -34,14 +35,29 @@
     </body>
     <script>
     
-        const CheckBox = new Vue({
+        let CheckBox = new Vue({
             el: '#checkbox',
             data(){
                     return {
-                        checked: false
+                        parents: {
+                            checked: false,
+                            
+                        },
+                        children: {
+                            checked: false
+                        }
                     }
+            },
+            methods: {
+                onChange(){
+                if(!this.parents.checked){
+                    this.children.checked = true
+                }else{
+                    this.children.checked = false
+                }
             }
-        });
+          }
+        })
             
     </script>
 </html>
